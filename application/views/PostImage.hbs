@@ -1,0 +1,29 @@
+<div class="filter">
+    <header>
+        <h1>Post Image</h1>
+        <h3>To post an Image enter the information here</h3>
+    </header>
+    <form class="grid-container_form" method="POST" enctype="multipart/form-data"  action='/posts/createPost'> <!-- on the posts route there is a router.post('/createPost'...) -->
+        <fieldset class="fpost">
+           <input id="Post-Title" name="Post_Title" type="text" placeholder="Enter Post title here" class="inputpost" required>
+            <input id="Post-Description" name="Post_Description" type="text" placeholder="Your Description here" class="inputpost" required>
+
+            <label class="inputpost labelpost">
+                Image File
+            </label>
+            <input id="Image-File" name="Image-File" type="file" accept="image/*"
+                alt="Your Posted Image Should be here" required>
+        </fieldset>
+
+
+        <div class="button-container">
+            <button type="submit" class="buttonLeft">Post it</button>
+            <button type="reset" class="buttonRight">Reset</button>
+        </div>
+
+        <div class="checkbox1">
+            <input id="Use-Policy" type="checkbox" class="checkbox">
+            <label for="Use-Policy" class="checkbox">I Accept the <a href="">Acceptable Use Policy</a>.</label>
+        </div>
+    </form>
+</div>

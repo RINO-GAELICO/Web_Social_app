@@ -1,0 +1,153 @@
+"use strict";
+const mysql = require("mysql2/promise");
+
+function displayWarningMessage(warning) {
+    switch (warning.Code) {
+        case 1007:
+            console.log(`Skipping Database Creation --> ${warning.Message}`);
+            break;
+        case 1050:
+            console.log(`Skipping Table Creation --> ${warning.Message}`);
+            break;
+    }
+}
+
+async function getConnection() {
+    return await mysql.createConnection({
+        host: "localhost",
+        //TODO make sure to change to the user you want to use
+        user: "root", //Your DB username
+        //TODO make sure to change to the correct password for your user.
+        password: "ABB10iote", //Your DB password
+    });
+}
+
+async function makeDatabase(connection) {
+    //TODO make sure to change yourdbnamehere
+    const [result, _] = await connection.query(
+        "CREATE DATABASE IF NOT EXISTS CSC317db;"
+    );
+    if (result && result.warningStatus > 0) {
+        const [warningResult, _] = await connection.query("SHOW WARNINGS");
+        displayWarningMessage(warningResult[0]);
+    } else {
+        console.log("Created Database!");
+    }
+}
+
+async function makeUsersTable(connection) {
+    const [result, _] = await connection.query(
+        // Users Table SQL Goes here
+        `
+    CREATE TABLE IF NOT EXISTS CSC317db.users (
+    id INT NOT NULL AUTO_INCREMENT,
+    Username VARCHAR(255) NOT NULL,
+    Email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    active INT NOT NULL DEFAULT '1',
+    creationTime DATETIME NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE INDEX id (id ASC) VISIBLE,
+    UNIQUE INDEX User_Email (Username ASC, Email ASC) VISIBLE,
+    UNIQUE INDEX Username_UNIQUE (Username ASC) VISIBLE,
+    UNIQUE INDEX Email_UNIQUE (Email ASC) VISIBLE)
+    ENGINE = InnoDB
+    AUTO_INCREMENT = 10
+    DEFAULT CHARACTER SET = utf8mb4
+    COLLATE = utf8mb4_0900_ai_ci
+    `
+    );
+
+    if (result && result.warningStatus > 0) {
+        const [warningResult, _] = await connection.query("SHOW WARNINGS");
+        displayWarningMessage(warningResult[0]);
+    } else {
+        console.log("Created Users Table!");
+    }
+}
+
+async function makePostsTable(connection) {
+    const [result, _] = await connection.query(
+        // Posts Table SQL Goes here
+        `
+        CREATE TABLE IF NOT EXISTS CSC317db.posts (
+            postId INT NOT NULL AUTO_INCREMENT,
+            authorId INT NOT NULL,
+            title VARCHAR(128) NOT NULL,
+            postText MEDIUMTEXT NOT NULL,
+            photoPath VARCHAR(2048) NOT NULL,
+            thumbnail VARCHAR(2048) NOT NULL,
+            active INT NOT NULL DEFAULT '1',
+            creationTime DATETIME NOT NULL,
+            PRIMARY KEY (postId),
+            UNIQUE INDEX postId_UNIQUE (postId ASC) VISIBLE,
+            INDEX authorId (authorId ASC) VISIBLE,
+            CONSTRAINT posts_ibfk_1
+        FOREIGN KEY (authorId)
+        REFERENCES CSC317db.users (id))
+        ENGINE = InnoDB
+        AUTO_INCREMENT = 5
+        DEFAULT CHARACTER SET = utf8mb4
+        COLLATE = utf8mb4_0900_ai_ci
+        `
+    );
+    if (result && result.warningStatus > 0) {
+        const [warningResult, _] = await connection.query("SHOW WARNINGS");
+        displayWarningMessage(warningResult[0]);
+    } else {
+        console.log("Created Posts Table!");
+    }
+}
+
+async function makeCommentsTable(connection) {
+    const [result, _] = await connection.query(
+        // Comments Table SQL Goes here
+        `
+        CREATE TABLE IF NOT EXISTS CSC317db.comments (
+            commentId INT NOT NULL AUTO_INCREMENT,
+            postId INT NOT NULL,
+            authorId INT NOT NULL,
+            commentText MEDIUMTEXT NOT NULL,
+            creationTime DATETIME NOT NULL,
+            PRIMARY KEY (commentId),
+            UNIQUE INDEX commentId_UNIQUE (commentId ASC) VISIBLE,
+            INDEX postId (postId ASC) VISIBLE,
+            INDEX authorId (authorId ASC) VISIBLE,
+            CONSTRAINT comments_ibfk_1
+        FOREIGN KEY (postId)
+        REFERENCES CSC317db.posts (postId),
+            CONSTRAINT comments_ibfk_2
+        FOREIGN KEY (authorId)
+        REFERENCES CSC317db.users (id))
+        ENGINE = InnoDB
+        DEFAULT CHARACTER SET = utf8mb4
+        COLLATE = utf8mb4_0900_ai_ci
+    `
+    );
+    if (result && result.warningStatus > 0) {
+        const [warningResult, _] = await connection.query("SHOW WARNINGS");
+        displayWarningMessage(warningResult[0]);
+    } else {
+        console.log("Created Comments Table!");
+    }
+}
+
+(async function main() {
+    let connection = null;
+    try {
+        connection = await getConnection();
+        await makeDatabase(connection); // make DB
+        //TODO make sure to change yourdbnamehere
+        await connection.query("USE CSC317db"); // set new DB to the current DB
+        await makeUsersTable(connection); // try to make user table
+        await makePostsTable(connection); // try to make posts table
+        await makeCommentsTable(connection); // try to make comments table
+        connection.close();
+
+    } catch (error) {
+        console.error(error);
+        if (connection != null) {
+            connection.close();
+        }
+    }
+})();

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link rel="stylesheet" type="text/css" href="/public/css/home.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/forms.css">
+    <!--    <script defer type="text/javascript" src="/public/js/Home.js"></script>-->
+    <script defer type="application/javascript" src="/public/js/Frontend.js"></script>
+    <!--    <script defer type="text/javascript" src="/public/js/Registration.js"></script>-->
+    <link rel="shortcut icon" href="#">
+    <title>{{title}}</title>
+</head>
+{{> topnav }}
+{{#if (emptyObject messages)}}
+    {{> flashMessage}}
+{{/if}}
+<body>
+{{{body}}}
+</body>
+{{> footer }}
+
+{{#if logged}}
+    <script>
+        let element = document.getElementById('logout');
+        if (element) {
+            element.onclick = (event) => {
+                fetch('users/logout', {
+                    method: "POST"
+                })
+                        .then((data) => {
+                            // data.locals.logged = false;
+                            location.replace('/');
+
+                        })
+            }
+
+        }
+    </script>
+{{/if}}
+</html>

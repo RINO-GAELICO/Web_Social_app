@@ -1,0 +1,44 @@
+<div class="filter">
+    <header>
+        <h1>Registration</h1>
+    </header>
+
+    <form id="form" class="grid-container_form_register" method="POST" action="/users/register">
+        <div class="containerForm_message">
+        <fieldset>
+            <input id="Username" name="username" placeholder="Username" required >
+            <div id="messageUser" class="messages message_Username">m1 &#10003; </div>
+            <input autocomplete="off" id="Email" name="Email" type="email" required placeholder="Email" >
+            <div id="messageEmail" class="messages message_Email">m2 &#10003</div>
+            <input id="Password" name="password" type="password" placeholder="Password" required>
+            <div id="messagePassword"  class="messages message_Password">m3 &#10003; </div>
+            <input id="Confirm-Password" name="Confirm_Password" type="password" placeholder="Confirm Password" required>
+            <div id="messageConfirmPass"  class="messages message_ConfirmedPassword">m4 &#10003; </div>
+        </fieldset>
+        </div>
+
+        <div class="button-container">
+            <button type="submit" class="buttonLeft">Register</button>
+            <button type="reset" class="buttonRight">Clear</button>
+            </div>
+       
+        <div class="checkbox1">
+            <input class="checkbox" id="TOS-Privacy" name="TOS-Privacy" required type="checkbox">
+            <label for="TOS-Privacy" class="checkbox labelCheckBox">Accept <a href="">Terms of Use</a> and <a href="">Privacy Policy</a></label>
+        </div>
+
+        <div class="checkbox2">
+            <input id="age-check" name="age-check" type="checkbox" class="checkbox" required>
+            <label for="age-check" class="checkbox labelCheckBox">I declare I am 13+ years old</label>
+        </div>
+
+        <div class="info2">
+            <p>Already have an account? <a href="/login">Sign in here</a></p>
+        </div>
+        
+
+    </form>
+
+
+    </div>
+

@@ -1,0 +1,12 @@
+<div class="topnav" id="topNav">
+    {{#if logged}}<a id="logout">Log out</a> {{else}} {{#if login}}{{else}}<a id="login" href="/login">Login</a>{{/if}} {{/if}}
+    {{#if logged}} <span id="logged" class="logged"> Hi {{username}}!</span>{{/if}}
+
+    {{#each nav}}
+        <a href="{{url}}">{{title}}</a>
+    {{/each}}
+
+    <button id="search-button" class ="search-button" type="submit"><i class="fa fa-search"></i></button>
+
+    <input class ="search-text" id="search-text" name="search-text" type="text">
+</div>

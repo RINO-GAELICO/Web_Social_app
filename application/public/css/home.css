@@ -1,0 +1,128 @@
+body{
+    font-family:-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, Helvetica, Hiragino Kaku Gothic Pro, Meiryo, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+    background-color:rgb(240, 222, 207);
+    display: grid;
+}
+
+.card-body{
+    background-color: rgba(255, 0, 0, 0.3);
+
+    color: #f0f0f2;
+    text-align: center;
+}
+.card{
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    border-style: solid;
+    border-color: #600a0a;
+    border-radius: 8px;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    padding: .2rem;
+    display: grid;
+    grid-template-rows: 1fr .5fr;
+    grid-template-columns: 1fr;
+    align-content: stretch;
+
+
+}
+a:link{
+    text-decoration: none!important;
+}
+
+.anchor-buttons:hover {
+    background-color: lightgreen;
+}
+
+.anchor-buttons{
+    color: indigo;
+    font-style: italic;
+}
+
+.card-image{
+
+    align-self: center;
+    align-content: center;
+    /*display: flex;*/
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: fill;
+    width: 100%;
+    height: 100%;
+
+}
+/*.card-image > img {*/
+/*    object-fit: cover;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*}*/
+
+.main-content{
+    grid-area: content;
+    padding-top: .35em;
+    padding-bottom: .35em;
+    display: grid;
+    grid-gap: .2rem .2rem;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-auto-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-auto-rows: 1fr;
+}
+
+.photo{
+    display: flex;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    flex-direction: column;
+    flex-flow: column;
+    margin: .4em;
+}
+
+.container{
+    display: flow;
+    /*grid-auto-flow: row;*/
+    /*grid-template-columns: repeat(4,1fr);*/
+    /*grid-auto-columns: 0.3fr;*/
+    /*grid-auto-rows: 1fr;*/
+    /*grid-gap: 2rem;*/
+    /*justify-self: center;*/
+    /*width: 90%;*/
+    /*min-height: 0;*/
+    /*min-width: 0;*/
+
+}
+
+.photo_title{
+    border: 1px solid black;
+    box-shadow: 2px 2px 2px grey;
+    padding: 0.5em;
+}
+
+h1{
+    justify-self: center;
+}
+
+.topnav {
+    background-color: rgba(64, 66, 72, 0.81);
+    overflow: hidden;
+    box-shadow: 2px 2px 2px grey;
+    border-radius: 10px;
+    margin-bottom: 1em;
+
+}
+
+.topnav a {
+    float: right;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
